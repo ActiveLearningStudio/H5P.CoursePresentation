@@ -215,6 +215,8 @@ const SummarySlide = (function () {
     var that = this;
     var tds = ''; // For saving the main table rows
     var i;
+    var totalScore = 0;
+    var totalMaxScore = 0;
     var slidePercentageScore = 0;
     var slideDescription = '';
     for (i = 0; i < slideScores.length; i += 1) {
@@ -240,10 +242,12 @@ const SummarySlide = (function () {
             '<p>' + slideScores[i].score + '<span>/</span>' + slideScores[i].maxScore + '</p>' +
           '</td>' +
         '</tr>';
+        totalScore += slideScores[i].score;
+        totalMaxScore += slideScores[i].maxScore;
     }
 
     if (!this.cp.isSolutionMode) {
-      // that.cp.triggerXAPICompleted(totalScore, totalMaxScore);
+       that.cp.triggerXAPICompleted(totalScore, totalMaxScore);
     }
     var shareResultContainer = (that.cp.enableTwitterShare || that.cp.enableFacebookShare || that.cp.enableGoogleShare) ? '<span class="h5p-show-results-text">' + that.cp.l10n.shareResult + '</span>' : '';
     var twitterContainer = (that.cp.enableTwitterShare == true) ? '<span class="h5p-summary-twitter-message" aria-label="' + that.cp.l10n.shareTwitter + '"></span>': '';
